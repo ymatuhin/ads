@@ -1,34 +1,109 @@
-const banners = [
-  "bistriy_start_dlya_web_razrabotchika",
-  "boishsya_hodit_na_sobes",
-  "bystro_stat_frontenderom",
-  "effektivnye_kursy_po_js",
-  "hochesh_vo_frontend",
-  "kak_ponyat_frontend",
-  "nachni_obuchenie_v_saintcode",
-  "ne_online_shkola_a_bootcamp",
-  "ne_poluchilos_uchitsya_online",
-  "ne_znaesh_s_chego_nachat",
-  "online_shkoly_nichemu_ne_nauchili",
-  "prihodi_v_saintcode",
-  "putaeshsya_v_sintaksise_js",
-  "slozhno_uchitsya_po_vebinaram",
-  "stan_frontend_razrabotchikom",
-  "udelyaem_vremya_kazhdomu_studentu",
-];
+const banners: Record<string, [number, number][]> = {
+  bistriy_start_dlya_web_razrabotchika: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  boishsya_hodit_na_sobes: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  bystro_stat_frontenderom: [
+    [375, 160],
+    [728, 90],
+    [970, 90],
+  ],
+  effektivnye_kursy_po_js: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  hochesh_vo_frontend: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  kak_ponyat_frontend: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  nachni_obuchenie_v_saintcode: [
+    [375, 160],
+    [728, 90],
+    [970, 90],
+  ],
+  ne_online_shkola_a_bootcamp: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  ne_poluchilos_uchitsya_online: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  ne_znaesh_s_chego_nachat: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  online_shkoly_nichemu_ne_nauchili: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  prihodi_v_saintcode: [
+    [375, 160],
+    [728, 90],
+    [970, 90],
+  ],
+  putaeshsya_v_sintaksise_js: [
+    [375, 160],
+    [728, 90],
+    [970, 90],
+  ],
+  slozhno_uchitsya_po_vebinaram: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  stan_frontend_razrabotchikom: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+  udelyaem_vremya_kazhdomu_studentu: [
+    [375, 160],
+    [728, 125],
+    [970, 125],
+  ],
+};
 
 export const getSaintCodeHtml = (block: HTMLElement) => {
   const { clientWidth } = block;
-  const size = clientWidth > 970 ? 970 : clientWidth > 600 ? 728 : 375;
-  const bannerName = banners[Math.floor(Math.random() * banners.length)];
-  const baseUrl = "https://ymatuhin.ru/ads/saint-code";
-  const imageUrl = `${baseUrl}/${bannerName}_${size}.svg`;
-  const linkUrl = `https://saintcode.ru?utm_source=${location.hostname}&utm_medium=banner&utm_campaign=summer_promo_2022&utm_content=${bannerName}&utm_term=ymatuhin&utm_banner_width=${size}`;
+  const { linkUrl, imageUrl, width, height } = getBanner(clientWidth);
 
   // location
-  return `SAINT-CODE
-    <a href="${linkUrl}" target="_blank" style="display:block">
-      <img src="${imageUrl}" width="${size}" height="90" alt="SaintCode Bootcamp" style="max-width:100%;height:auto;max-height: 150px">
-    </a>
-  `;
+  return `<a href="${linkUrl}" target="_blank" style="display:block"><img src="${imageUrl}" alt="SaintCode Bootcamp" width="${width}" height="${height}" style="display:block;max-width:100%;height:auto;max-height:160px"></a>`;
 };
+
+function getBanner(blockWidth: number) {
+  const items = Object.keys(banners);
+  const bannerName = items[
+    Math.floor(Math.random() * items.length)
+  ] as keyof typeof banners;
+  const [width, height] = findSize(banners[bannerName], blockWidth);
+  const baseUrl = "https://ymatuhin.ru/ads/saint-code";
+  const imageUrl = `${baseUrl}/${bannerName}_${width}.svg`;
+  const linkUrl = `https://saintcode.ru?utm_source=${location.hostname}&utm_medium=banner&utm_campaign=summer_promo_2022&utm_content=${bannerName}&utm_term=ymatuhin&utm_banner_width=${width}`;
+  return { linkUrl, imageUrl, width, height };
+}
+
+function findSize(sizes: [number, number][], blockWidth: number) {
+  // bigger come first
+  const sortedByWidth = sizes.sort((a, b) => b[0] - a[0]);
+  const size = sortedByWidth.find(([width]) => width * 0.8 < blockWidth);
+  return size as [number, number];
+}

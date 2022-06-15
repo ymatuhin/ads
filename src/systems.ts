@@ -15,7 +15,7 @@ export const systems: Record<string, System> = {
     getHtml: getGoogleHtml,
   },
   yandex: {
-    hosts: ["ymatuhin.ru"],
+    hosts: [],
     getHtml: getYandexHtml,
   },
 };

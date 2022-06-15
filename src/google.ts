@@ -1,7 +1,5 @@
 export const getGoogleHtml = () => {
-  return `
-    GOOGLE
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  return `<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <ins class="adsbygoogle"
       style="display:block"
       data-ad-client="ca-pub-6430039911615607"
