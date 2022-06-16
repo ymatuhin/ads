@@ -3,7 +3,7 @@ import { getGoogleHtml } from "./google";
 import { getSaintCodeHtml } from "./saintcode";
 
 export type System = {
-  hosts?: string[];
+  hosts?: Record<string, string>;
   getHtml: Function;
 };
 
@@ -15,7 +15,12 @@ export const systems: Record<string, System> = {
     getHtml: getGoogleHtml,
   },
   yandex: {
-    hosts: [],
-    getHtml: getYandexHtml,
+    hosts: {
+      "lines98.ru": "R-A-267686-1",
+    },
+    getHtml() {
+      const hosts = this.hosts ?? {};
+      return getYandexHtml(hosts[location.hostname]);
+    },
   },
 };

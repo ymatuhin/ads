@@ -40,7 +40,7 @@ function getInfo() {
   });
 
   return {
-    canBeYandex: systems.yandex.hosts?.includes(location.hostname),
+    canBeYandex: location.hostname in (systems.yandex.hosts || {}),
     host: location.hostname,
     pageLang: document.documentElement.lang,
     userLang: navigator.language.slice(0, 2),
