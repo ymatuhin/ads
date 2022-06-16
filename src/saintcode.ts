@@ -86,7 +86,7 @@ export const getSaintCodeHtml = (block: HTMLElement) => {
   const { linkUrl, imageUrl, width, height } = getBanner(clientWidth);
 
   // location
-  return `<a href="${linkUrl}" target="_blank" style="display:block"><img src="${imageUrl}" alt="SaintCode Bootcamp" width="${width}" height="${height}" style="display:block;max-width:100%;height:auto;max-height:160px"></a>`;
+  return `<a href="${linkUrl}" target="_blank" style="display:block"><img src="${imageUrl}" alt="SaintCode Bootcamp" width="${width}" height="${height}" style="display:block;max-width:100%;height:auto;max-height:160px;margin:0 auto;"></a>`;
 };
 
 function getBanner(blockWidth: number) {
@@ -102,8 +102,9 @@ function getBanner(blockWidth: number) {
 }
 
 function findSize(sizes: [number, number][], blockWidth: number) {
-  // bigger come first
-  const sortedByWidth = sizes.sort((a, b) => b[0] - a[0]);
-  const size = sortedByWidth.find(([width]) => width * 0.8 < blockWidth);
-  return size as [number, number];
+  // smaller come first
+  const sortedByWidth = sizes.sort((a, b) => a[0] - b[0]);
+  const max = sortedByWidth[sortedByWidth.length - 1];
+  const size = sortedByWidth.find(([width]) => width > blockWidth);
+  return (size ?? max) as [number, number];
 }
