@@ -1,0 +1,23 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1,
+    "workspacePrefix": "/Users/ymatuhin/Dev/workspace"
+  },
+  "1 error pnpm": {
+    "code": "ELIFECYCLE",
+    "errno": "ENOENT",
+    "syscall": "spawn",
+    "file": "sh",
+    "pkgid": "ads@1.0.0",
+    "stage": "deploy",
+    "script": "pnpm build && gh-pages -d dist",
+    "pkgname": "ads",
+    "err": {
+      "name": "pnpm",
+      "message": "ads@1.0.0 deploy: `pnpm build && gh-pages -d dist`\nspawn ENOENT",
+      "code": "ELIFECYCLE",
+      "stack": "pnpm: ads@1.0.0 deploy: `pnpm build && gh-pages -d dist`\nspawn ENOENT\n    at ChildProcess.<anonymous> (/Users/ymatuhin/Library/pnpm/global/5/.pnpm/pnpm@7.2.1/node_modules/pnpm/dist/pnpm.cjs:93917:22)\n    at ChildProcess.emit (node:events:527:28)\n    at maybeClose (node:internal/child_process:1090:16)\n    at ChildProcess._handle.onexit (node:internal/child_process:302:5)"
+    }
+  },
+  "2 warn pnpm:global": " Local package.json exists, but node_modules missing, did you mean to install?"
+}

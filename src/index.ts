@@ -34,9 +34,22 @@ function insertAds(block: HTMLElement, system: System) {
   block.innerHTML = system.getHtml(block);
 }
 
+const localesThatMaybeCanReadRussian = [
+  "uz", // Uzbek
+  "be", // Belarusian
+  "ro", // Romanian
+  "et", // Estonian
+  "lv", // Latvian
+  "lt", // Lithuanian
+  "hy", // Armenian
+  "az", // Azerbaijani
+  "ka", // Georgian
+];
+
 function getInfo() {
-  const canReadRussian = window.navigator.languages.some((lang) => {
-    return lang.includes("ru") || lang.includes("uk") || lang.includes("be");
+  const languages = window.navigator?.languages ?? [navigator.language];
+  const canReadRussian = languages.some((lang) => {
+    return localesThatMaybeCanReadRussian.includes(lang);
   });
 
   return {

@@ -100,9 +100,12 @@ const banners: Record<string, [number, number][]> = {
 export const getSaintCodeHtml = (block: HTMLElement) => {
   const { clientWidth } = block;
   const { linkUrl, imageUrl, width, height } = getBanner(clientWidth);
+  const align = block.getAttribute("data-ads-align") ?? "center";
+  const margin =
+    align === "center" ? "0 auto" : align === "left" ? "0" : "0 0 0 auto";
 
   // location
-  return `<a href="${linkUrl}" target="_blank" style="display:block"><img src="${imageUrl}" alt="SaintCode Bootcamp" width="${width}" height="${height}" style="display:block;max-width:100%;height:auto;max-height:160px;margin:0 auto;"></a>`;
+  return `<a href="${linkUrl}" target="_blank" style="display:block;all: initial;cursor:pointer;"><img src="${imageUrl}" alt="SaintCode Bootcamp" width="${width}" height="${height}" style="display:block;max-width:100%;height:auto;max-height:160px;margin:${margin}"></a>`;
 };
 
 function getBanner(blockWidth: number) {

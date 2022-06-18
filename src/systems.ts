@@ -17,6 +17,7 @@ export const systems: Record<string, System> = {
   yandex: {
     hosts: {
       "lines98.ru": "R-A-267686-1",
+      "autoprefixer.github.io": "R-A-268262-1",
     },
     getHtml() {
       const hosts = this.hosts ?? {};
