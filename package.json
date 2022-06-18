@@ -2,20 +2,15 @@
   "name": "ads",
   "private": "true",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc && vite build --emptyOutDir",
     "deploy": "pnpm build && gh-pages -d dist",
     "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "ymatuhin",
   "devDependencies": {
     "gh-pages": "^4.0.0",
     "typescript": "^4.5.4",
     "vite": "^2.9.9"
-  },
-  "license": "ISC"
+  }
 }
