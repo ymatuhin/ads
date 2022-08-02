@@ -8,13 +8,18 @@ function init() {
   const blocksArr = Array.from(blocks) as HTMLElement[];
 
   blocksArr.forEach((block: HTMLElement, index: number) => {
-    const [primary, secondary] = getSystems(index);
-    insertAds(block, primary);
-    setTimeout(() => {
-      const isBlockEmpty = block.clientHeight < 10 && block.clientWidth < 10;
-      if (isBlockEmpty) insertAds(block, secondary);
-    }, 8000);
+    handleAdsBlock(block, getSystems(index));
   });
+}
+
+function handleAdsBlock(block: HTMLElement, systems: System[]) {
+  const [system, ...rest] = systems;
+  insertAds(block, system);
+
+  setTimeout(() => {
+    const isBlockEmpty = block.clientHeight < 4 || block.clientWidth < 4;
+    if (isBlockEmpty && rest.length) handleAdsBlock(block, rest);
+  }, 4000);
 }
 
 function getSystems(index: number) {
@@ -31,7 +36,9 @@ function getSystems(index: number) {
 }
 
 function insertAds(block: HTMLElement, system: System) {
-  block.innerHTML = system.getHtml(block);
+  const id = system.hosts?.[location.hostname];
+  block.innerHTML = system.getHtml(block, id);
+  system.insertScripts?.(block, id);
 }
 
 function getInfo() {

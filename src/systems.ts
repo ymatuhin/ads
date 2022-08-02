@@ -1,10 +1,11 @@
-import { getYandexHtml } from "./yandex";
-import { getGoogleHtml } from "./google";
+import { getGoogleHtml, insertGoogleScripts } from "./google";
 import { getSaintCodeHtml } from "./saintcode";
+import { getYandexHtml, insertYandexScripts } from "./yandex";
 
 export type System = {
-  hosts?: Record<string, string>;
   getHtml: Function;
+  hosts?: Record<string, string>;
+  insertScripts?: Function;
 };
 
 export const systems: Record<string, System> = {
@@ -13,15 +14,14 @@ export const systems: Record<string, System> = {
   },
   google: {
     getHtml: getGoogleHtml,
+    insertScripts: insertGoogleScripts,
   },
   yandex: {
     hosts: {
       "lines98.ru": "R-A-267686-1",
       "autoprefixer.github.io": "R-A-268262-1",
     },
-    getHtml() {
-      const hosts = this.hosts ?? {};
-      return getYandexHtml(hosts[location.hostname]);
-    },
+    insertScripts: insertYandexScripts,
+    getHtml: getYandexHtml,
   },
 };
